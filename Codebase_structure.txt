@@ -1,0 +1,29 @@
+app/
+├── main.py                    — FastAPI app, lifespan, CORS, global error handler
+├── core/
+│   ├── config.py              — Pydantic Settings (all env vars in one place)
+│   ├── vector_engine.py       — Tier 1: ChromaDB/Qdrant similarity search (LLM01)
+│   ├── llm_judge.py           — Tier 2: LLM-as-a-Judge w/ configurable fail-safe (LLM01)
+│   └── pii_scanner.py         — Tier 3: Microsoft Presidio PII redaction (LLM06)
+├── models/
+│   └── schemas.py             — Pydantic v2 request/response schemas
+├── services/
+│   ├── vector_db.py           — Singleton factory for vector engine
+│   └── openai_client.py       — Singleton factory for LLM Judge
+└── api/v1/
+    ├── sanitizer.py           — POST /v1/sanitizer (3-tier detection pipeline)
+    └── audit.py               — POST /v1/audit (PII scan)
+
+tests/
+├── conftest.py                — Shared fixtures (mocked engines/judges)
+├── test_sanitizer.py          — 5 tests covering all detection paths
+└── test_audit.py              — 4 tests covering PII detection
+
+docker/
+├── Dockerfile                 — Python 3.11-slim + spaCy model download
+└── docker-compose.yml         — ai-firewall + chromadb services
+
+scripts/init_vector_db.py      — Seeds 8 malicious injection signatures
+.env.example                   — All configurable env vars with defaults
+requirements.txt               — Pinned dependencies
+pytest.ini                     — asyncio_mode=auto, --cov=app, 80% threshold
