@@ -49,7 +49,7 @@ The service is fully containerized for immediate deployment into any cloud-nativ
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ai-firewall.git
+git clone https://github.com/Hil-one/ai-firewall.git
 
 # Initialize the environment
 docker-compose up --build
@@ -62,7 +62,3 @@ docker-compose up --build
 
 ---
 
-## Roadmap
-* [ ] Integration with **Azure AI Content Safety**.
-* [ ] Multi-modal support (Protecting Image/Audio RAG).
-* [ ] Real-time Security Observability Dashboard for CISOs.
